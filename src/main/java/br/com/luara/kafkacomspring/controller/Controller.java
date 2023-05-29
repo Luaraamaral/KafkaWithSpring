@@ -1,7 +1,7 @@
 package br.com.luara.kafkacomspring.controller;
 
-import br.com.luara.kafkacomspring.dadoskafka.Pedido;
-import br.com.luara.kafkacomspring.service.RegistraEventoService;
+import br.com.luara.kafkacomspring.model.Pedido;
+import br.com.luara.kafkacomspring.service.ProdutorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class Controller {
 
     @Autowired
-    private final RegistraEventoService eventoService;
+    private final ProdutorService eventoService;
 
-    @PostMapping(path = "/salvaPedido")
-    public ResponseEntity<String> salvarPedido(@RequestBody Pedido pedido) {
+    @PostMapping(path = "/adicionaPedido")
+    public ResponseEntity<String> adicionarPedido(@RequestBody Pedido pedido) {
 
         eventoService.adicionarEventoNaFila("SalvarPedido", String.valueOf(pedido));
 
-        return ResponseEntity.ok("");
+        return ResponseEntity.ok("Evento adicionado na fila!");
     }
 
 }
